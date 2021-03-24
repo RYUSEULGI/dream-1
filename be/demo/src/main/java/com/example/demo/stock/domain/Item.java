@@ -25,4 +25,7 @@ public class Item {
 
 	@Column(name = "release_date")
 	public String releaseDate;
+	
+	@Column(name = "sold_out")
+	public Boolean soldOut;
 }

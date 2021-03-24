@@ -15,4 +15,5 @@ public class ItemDto implements Serializable {
 	public String itemName;
 	public String itemColor;
 	public String releaseDate;
+	public Boolean soldOut;
 }
