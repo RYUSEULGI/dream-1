@@ -22,21 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/item")
 @CrossOrigin(origins ="*")
 public class ItemController {
-	public final ItemServiceImpl itemService;
-
-	@GetMapping("/create")
-	public ResponseEntity<?> create(@RequestBody ItemDto item){
-		System.out.println("getItemFindAll()");
-
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
-	@GetMapping("/{itemNo}")
-	public ResponseEntity<Item> detail(@PathVariable(name = "itemNo") long itemNo){
-		System.out.println("getItemDetail()");
-
-		return new ResponseEntity<>(itemService.detail(itemNo), HttpStatus.OK);
-	}
+	private final ItemServiceImpl itemService;
 	
 	@GetMapping("/count")
 	public ResponseEntity<Long> count(){
@@ -45,8 +31,22 @@ public class ItemController {
 		return new ResponseEntity<>(itemService.count(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/create")
+	public ResponseEntity<?> create(Item item){
+		System.out.println("getItemCreate()");
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/detail/{itemNO}")
+	public ResponseEntity<Item> detail(long itemNo) {
+		System.out.println("getItemDetail()");
+
+		return new ResponseEntity<>(itemService.detail(itemNo), HttpStatus.OK);
+	}
+	
 	@GetMapping("/delete/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable(name = "id") long id){
+	public ResponseEntity<?> deleteById(@PathVariable long id){
 		System.out.println("getItemDeleteById()");
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -67,14 +67,14 @@ public class ItemController {
 	}
 	
 	@GetMapping("/exist/{id}")
-	public ResponseEntity<Boolean> existsById(@PathVariable(name = "id") long id){
+	public ResponseEntity<Boolean> existsById(@PathVariable long id){
 		System.out.println("getItemExistsById()");
 
 		return new ResponseEntity<>(itemService.existsById(id), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Item> getOne(@PathVariable(name = "id") long id){
+	public ResponseEntity<Item> getOne(@PathVariable long id){
 		System.out.println("getItemOne()");
 
 		return new ResponseEntity<>(itemService.getOne(id), HttpStatus.OK);
@@ -86,7 +86,4 @@ public class ItemController {
 
 		return new ResponseEntity<>(itemService.findOne(), HttpStatus.OK);
 	}
-
-	
-	
 }

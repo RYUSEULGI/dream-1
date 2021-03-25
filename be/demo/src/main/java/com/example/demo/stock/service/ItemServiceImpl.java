@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.cmm.service.AbstractService;
 import com.example.demo.stock.domain.Item;
-import com.example.demo.stock.domain.ItemDto;
 import com.example.demo.stock.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -16,16 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ItemServiceImpl extends AbstractService<Item> implements ItemService {
 	private final ItemRepository itemRepo;
-	
-	@Override
-	public void create(ItemDto item) {
-		itemRepo.create(item);
-	}
-	
-	@Override
-	public Item detail(long itemNo) {
-		return itemRepo.read(itemNo);
-	}
 
 	@Override
 	public long count() {
@@ -62,4 +51,13 @@ public class ItemServiceImpl extends AbstractService<Item> implements ItemServic
 		return itemRepo.findOne(null);
 	}
 
+	@Override
+	public Item detail(long itemNo) {
+		return itemRepo.detail(itemNo);
+	}
+
+	@Override
+	public void create(Item item) {
+		itemRepo.create(item);
+	}
 }

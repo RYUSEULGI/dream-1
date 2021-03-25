@@ -5,18 +5,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.demo.stock.domain.Item;
-import com.example.demo.stock.domain.ItemDto;
 
-interface ItemCustomRepository{
-	
-	@Query("INSERT INTO item i SELECT * FROM 0")
-	public void create(ItemDto item);
-	
-	@Query("SELECT * FROM item i WHERE i.item_no = :itemNo")
-	public Item read(@Param("item_no") long itemNo);
-}
+interface ItemCustomRepository{}
 
-public interface ItemRepository extends JpaRepository<Item, Long>, 
-										ItemCustomRepository{
+public interface ItemRepository extends JpaRepository<Item, Long>,
+											ItemCustomRepository{
+	@Query(value = "SELECT * FROM item i WHERE i.item_no = :itemNo", nativeQuery = true)
+	public void create(@Param("itemNo") Item item);
 	
+	@Query(value = "INSERT INTO items i SELECT * FROM ", nativeQuery = true)
+	public Item detail(long itemNo);
 }
